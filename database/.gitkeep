@@ -1,0 +1,2 @@
+This is the folder which will hold our database file.
+We can't delete it because sqlite3 can only create files not directories.
