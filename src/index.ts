@@ -2,7 +2,7 @@ import { config } from "dotenv";
 import express, {Express} from "express"
 import * as ResponseStatus from "http-status-codes";
 
-import { UnSuccessfulApiResponse } from "./common/ApiResponse.ts";
+import { UnSuccessfulApiResponse } from "./common/ApiResponse";
 
 config(); // environment variable configuration
 
