@@ -15,7 +15,7 @@ app.use(cors()).use(morgan("tiny")).use(express.json()).use(express.urlencoded({
 
 app.use("/health-track", healthTrackRouter);
 app.get("*", (req, res) => {
-    return res.status(ResponseStatus.StatusCodes.NOT_FOUND).send(new UnSuccessfulApiResponse(false ,"Route you're requesting was not found."));
+    return res.status(ResponseStatus.StatusCodes.NOT_FOUND).send(new UnSuccessfulApiResponse(false ,"Welcome to Health-Track server. \n Visit:https://documenter.getpostman.com/view/19417069/2s9YR57aor \t for Documentation "));
 });
 
 
