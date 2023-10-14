@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "description": "A sophisticated healthcare system, designed to collect, store, analyze, and present crucial patient's data.",
   "main": "server.js",
-  "type": "module",
+  "module": "module",
   "scripts": {
-    "test": "node server.js",
-    "dev" : "nodemon --exec ts-node src/index.ts",
+    "test": "node dist/server.js",
+    "dev": "nodemon --exec ts-node server.ts",
     "build": "npm install && tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "lint": "eslint . --ext .ts --fix",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -32,15 +34,25 @@
   },
   "homepage": "https://github.com/pacifiquem/HealthTrack#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.18.2",
-    "http-status-codes": "^2.3.0",
+    "http-errors": "^2.0.0",
+    "http-status-codes": "^2.2.0",
+    "joi": "^17.10.2",
+    "morgan": "^1.10.0",
     "sqlite3": "^5.1.6",
     "typescript": "^5.2.2"
   },
   "devDependencies": {
-    "@types/express": "^4.17.19",
-    "@types/node": "^20.8.4",
+    "@types/cors": "^2.8.14",
+    "@types/express": "^4.17.17",
+    "@types/http-errors": "^2.0.2",
+    "@types/morgan": "^1.9.5",
+    "@typescript-eslint/eslint-plugin": "^6.7.0",
+    "@typescript-eslint/parser": "^6.7.0",
     "dotenv": "^16.3.1",
+    "eslint": "^8.49.0",
+    "husky": "^8.0.3",
     "nodemon": "^3.0.1",
     "ts-node": "^10.9.1"
   }

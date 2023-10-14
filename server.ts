@@ -3,7 +3,7 @@ import { config } from "dotenv";
 
 config(); // environment variable configuration
 
-import app from "./src/index.js";
+import app from "./src/index.ts";
 
 const port: string | undefined = (process.env.NODE_ENV == "dev") ? process.env.DEV_PORT : process.env.PROD_PORT;
 

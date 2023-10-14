@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export class SuccessfulApiResponse {
     constructor(
         private success: boolean = true,
