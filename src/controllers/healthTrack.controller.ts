@@ -88,13 +88,13 @@ const createNewRecord = (req: Request, res: Response, next: NextFunction) => {
         "INSERT INTO records (patient_id, body_temperature, heart_rate, deduction) VALUES (?, ?, ?, ?)",
         [patient_id, body_temperature, heart_rate, deduction],
         function (err) {
-        if (err) {
-            console.error(err.message);
-            next(createHttpError(StatusCodes.BAD_REQUEST, `${err.message}`));
-        } else {
-            const record_id = this.lastID;
-            res.status(StatusCodes.CREATED).send(new SuccessfulApiResponse(true, { record_id }));
-        }
+            if (err) {
+                console.error(err.message);
+                next(createHttpError(StatusCodes.BAD_REQUEST, `${err.message}`));
+            } else {
+                const record_id = this.lastID;
+                res.status(StatusCodes.CREATED).send(new SuccessfulApiResponse(true, { record_id }));
+            }
         }
     );
 };
