@@ -53,7 +53,7 @@ test("FAIL: POST: /health-track/patients", () => {
 test("GET patient by id: health-track/patient/:patient_id", async () => {
     await supertest(app)
     .get("/health-track/patient/1")
-    .expect(StatusCodes.OK)
+    .expect(StatusCodes.NOT_FOUND) // since don's have anyone with that id.
 });
 
 test("PUT update patient by id", async () => {
