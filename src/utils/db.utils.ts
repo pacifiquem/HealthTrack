@@ -1,7 +1,7 @@
 import sqlite3 from "sqlite3";
 
 // Create a SQLite database connection
-const db = new sqlite3.Database("./database/HealthTrack.db");
+const db = new sqlite3.Database("HealthTrack.db");
 
 // Serialize database operations
 db.serialize(() => {
