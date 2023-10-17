@@ -3,6 +3,7 @@ import express, {Express} from "express"
 import * as ResponseStatus from "http-status-codes";
 import cors from "cors"
 import morgan from "morgan";
+import path from "path"
 
 import { UnSuccessfulApiResponse } from "./common/ApiResponse";
 import healthTrackRouter from "./router/healthTrack.router";
@@ -11,7 +12,7 @@ config(); // environment variable configuration
 
 const app: Express = express();
 
-app.use(cors()).use(morgan("tiny")).use(express.json()).use(express.urlencoded({extended: true})); // middlewares
+app.use(cors()).use(morgan("tiny")).use(express.json()).use(express.urlencoded({extended: true})).use(express.static(path.join(__dirname, "..", "public"))); // middlewares
 
 app.use("/health-track", healthTrackRouter);
 app.get("*", (req, res) => {
