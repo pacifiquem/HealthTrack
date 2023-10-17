@@ -1,11 +1,8 @@
 import sqlite3 from "sqlite3";
 
-// Create a SQLite database connection
 const db = new sqlite3.Database("HealthTrack.db");
 
-// Serialize database operations
 db.serialize(() => {
-  // Check if the 'patients' table exists, and create it if not
   db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='patients'", (err, row) => {
     if (err) {
       console.error(err.message);
@@ -23,7 +20,6 @@ db.serialize(() => {
     }
   });
 
-  // Check if the 'records' table exists, and create it if not
   db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='records'", (err, row) => {
     if (err) {
       console.error(err.message);
@@ -42,5 +38,5 @@ db.serialize(() => {
   });
 });
 
-// Export the database connection
+
 export default db;
