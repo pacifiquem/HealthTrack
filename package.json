@@ -5,7 +5,6 @@
   "main": "server.js",
   "module": "module",
   "scripts": {
-    "test": "vitest",
     "dev": "nodemon --exec ts-node server.ts",
     "build": "npm install && tsc",
     "start": "node dist/server.js",
@@ -47,16 +46,13 @@
     "@types/express": "^4.17.17",
     "@types/http-errors": "^2.0.2",
     "@types/morgan": "^1.9.5",
-    "@types/supertest": "^2.0.14",
     "@typescript-eslint/eslint-plugin": "^6.7.0",
     "@typescript-eslint/parser": "^6.7.0",
     "dotenv": "^16.3.1",
     "eslint": "^8.49.0",
     "husky": "^8.0.3",
     "nodemon": "^3.0.1",
-    "supertest": "^6.3.3",
     "ts-node": "^10.9.1",
-    "typescript": "^5.2.2",
-    "vitest": "^0.34.6"
+    "typescript": "^5.2.2"
   }
 }
