@@ -8,7 +8,7 @@ db.serialize(() => {
       console.error(err.message);
     } else if (!row) {
       db.run(
-        "CREATE TABLE patients (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, national_id TEXT UNIQUE)",
+        "CREATE TABLE patients (national_id TEXT UNIQUE PRIMARY KEY, name TEXT, frequent_sickness TEXT)",
         (err) => {
           if (err) {
             console.error(err.message);
@@ -25,7 +25,7 @@ db.serialize(() => {
       console.error(err.message);
     } else if (!row) {
       db.run(
-        "CREATE TABLE records (patient_id INTEGER, body_temperature REAL, heart_rate INTEGER, deduction TEXT DEFAULT 'fine', FOREIGN KEY(patient_id) REFERENCES patients(id) ON DELETE CASCADE)",
+        "CREATE TABLE records (patient_id INTEGER, body_temperature REAL, heart_rate INTEGER, deduction TEXT DEFAULT 'fine', FOREIGN KEY(patient_id) REFERENCES patients(national_id) ON DELETE CASCADE)",
         (err) => {
           if (err) {
             console.error(err.message);

@@ -2,7 +2,8 @@ import Joi from "joi";
 
 export const patientSchema = Joi.object({
   patient_name: Joi.string().required(),
-  patient_national_id: Joi.string().required()
+  patient_national_id: Joi.string().required(),
+  frequent_sickness: Joi.string().required()
 });
 
 export const recordSchema = Joi.object({
