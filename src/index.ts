@@ -19,10 +19,6 @@ app .use(cors())
     .use(express.urlencoded({extended: true}))
     .use(express.static(path.join(__dirname, "..", "public")))
 
-app.use("/", (req, res) => {
-    res.status(ResponseStatus.StatusCodes.PERMANENT_REDIRECT).redirect("/index.html");
-});
-
 app.use("/health-track", healthTrackRouter);
 app.get("*", (req, res) => {
     return res.status(ResponseStatus.StatusCodes.NOT_FOUND).send(new UnSuccessfulApiResponse(false ,"Welcome to Health-Track server. \n Visit:https://documenter.getpostman.com/view/19417069/2s9YR57aor \t for Documentation "));

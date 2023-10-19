@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="index.js"></script>
     <title>HealthTrack - Home</title>
 </head>
-<body class="bg-gray-700 w-full flex flex-row">
+<body class="bg-gray-700 w-full flex flex-row" onload="listAllPatients()">
   <!-- PROFILE SECTION -->
     <section class="profile-section border border-gray-600 flex flex-col gap-8 px-6 py-6">
       <h1 class="my-0 mx-auto font-extrabold tracking-tighter font-mono text-4xl text-white my-4">HTrack</h1>
@@ -24,15 +25,15 @@
         <p class="font-light font-mono text-sm text-white">No. Records: <span>12</span></p>
       </div>
       <div class="available-starts flex flex-col gap-2 -my-4">
-        <h2 class="my-0 mx-auto font-bold font-mono text-3xl text-white my-4">Stats</h2>
+        <h2 class="my-0 mx-auto font-semibold tracking-tighter font-mono text-3xl text-white my-4">Stats</h2>
         <div class="stats-buttons flex flex-col gap-4">
-          <button class="block text-lg text-white bg-blue-600 px-16 py-2 rounded font-mono">Overall</button>
-          <button class="block text-lg text-white bg-blue-600 px-14 py-2 rounded font-mono">Patients</button>
-          <button class="block text-lg text-white bg-blue-600 px-14 py-2 rounded font-mono">Records</button>
+          <button class="block text-lg text-white bg-[rgb(75,192,192)] px-16 py-2 rounded font-mono">Overall</button>
+          <button class="block text-lg text-white bg-[rgb(75,192,192)] px-14 py-2 rounded font-mono">Patients</button>
+          <button class="block text-lg text-white bg-[rgb(75,192,192)] px-14 py-2 rounded font-mono">Records</button>
         </div>
       </div>
       <div class="exit flex justify-center items-center mt-20">
-        <button class="block text-lg text-white bg-red-700 px-20 py-2 rounded font-mono" onclick="window.exit()">Exit</button>
+        <button class="block text-lg text-white bg-[rgb(255,99,132)] px-20 py-2 rounded font-mono" onclick="exitTab()">Exit</button>
       </div>
     </section>
   <!-- PROFILE SECTION -->
@@ -41,16 +42,29 @@
       <!-- HEADER SECTION -->
         <section class="header-section mt-3">
           <div class=" flex justify-end mr-8">
-            <button class="block text-lg text-white bg-blue-600 px-6 py-2 rounded font-mono">Visit Repo</button>
+            <button class="block text-lg text-white bg-[rgb(75,192,192)] px-6 py-2 rounded font-mono" onclick="visitRepo()">Visit Repo</button>
           </div>
         </section>
       <!-- HEADER SECTION-->
       <!-- STATS SECTION -->
-        <section class="stats-section border border-gray-600">
-          <div class="charts mr-8">
-            <canvas id="charts"></canvas>
+        <section class="stats-section border border-gray-600 flex justify-center items-center h-full">
+          <div id="charts-div" class="mr-8">
+            <canvas id="charts" width="800" height="400"></canvas>
           </div>
-          <div class="tables"></div>
+          <div id="tables">
+            <table class="table-auto border-separate border border-slate-500">
+              <thead>
+                <tr>
+                  <th class="border border-slate-600 px-12 py-4 font-mono text-white text-xl">National Id</th>
+                  <th class="border border-slate-600 px-12 py-4 font-mono text-white text-xl">Name</th>
+                  <th class="border border-slate-600 px-12 py-4 font-mono text-white text-xl">Frequent Sickness</th>
+                  <th class="border border-slate-600 px-12 py-4 font-mono text-white text-xl">Stats</th>
+                </tr>
+              </thead>
+              <tbody id="patient-table-body">
+              </tbody>
+            </table>
+          </div>
         </section>
       <!-- STATS SECTION -->
     </section>
