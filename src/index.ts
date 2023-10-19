@@ -7,7 +7,7 @@ import path from "path"
 
 import { UnSuccessfulApiResponse } from "./common/ApiResponse";
 import healthTrackRouter from "./router/healthTrack.router";
-import rate_limiter from "./utils/limiter.utils";
+// import rate_limiter from "./utils/limiter.utils";
 
 config(); // environment variable configuration
 
@@ -18,7 +18,6 @@ app .use(cors())
     .use(express.json())
     .use(express.urlencoded({extended: true}))
     .use(express.static(path.join(__dirname, "..", "public")))
-    .use(rate_limiter)
 
 app.use("/health-track", healthTrackRouter);
 app.get("*", (req, res) => {
