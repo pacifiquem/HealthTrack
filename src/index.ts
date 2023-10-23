@@ -20,6 +20,9 @@ app .use(cors())
     .use(express.static(path.join(__dirname, "..", "public")))
 
 app.use("/health-track", healthTrackRouter);
+app.use("/", (request, response) => {
+    response.status(ResponseStatus.StatusCodes.OK).sendFile('index.html');
+});
 app.get("*", (req, res) => {
     return res.status(ResponseStatus.StatusCodes.NOT_FOUND).send(new UnSuccessfulApiResponse(false ,"Welcome to Health-Track server. \n Visit:https://documenter.getpostman.com/view/19417069/2s9YR57aor \t for Documentation "));
 });
