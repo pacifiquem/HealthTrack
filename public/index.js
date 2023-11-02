@@ -20,7 +20,13 @@ async function listAllPatients() {
             visualize_button.className = "bg-transparent border border-slate-600 px-12 py-4 font-mono text-[rgb(75,192,192)] font-extrabold underline";
             td_id.className = "border border-slate-600 px-12 py-4 font-mono text-white font-light";
             td_name.className = "border border-slate-600 px-12  py-4 font-mono text-white font-light";
-            td_frequent_sickness.className = "border border-slate-600 px-12 py-4 font-mono text-white font-light";
+
+            if ( patient_data.frequent_sickness == "Unknown" ) {
+                td_frequent_sickness.className = "border border-slate-600 px-12 py-4 font-mono text-gray-500 font-light";
+                
+            }else {
+                td_frequent_sickness.className = "border border-slate-600 px-12 py-4 font-mono text-white font-light";
+            }
 
             visualize_button.appendChild(document.createTextNode("visualize"));
             td_id.appendChild(document.createTextNode(patient_data.national_id));
