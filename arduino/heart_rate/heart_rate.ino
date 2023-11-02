@@ -1,21 +1,37 @@
+#include <OneWire.h>
+#include <DallasTemperature.h>
+
 #define samp_siz 4
 #define rise_threshold 4
+#define ONE_WIRE_BUS 2 // Digital pin #2
 
 // Pulse Monitor  Test Script
 int sensorPin = 0;
 float first, second, third, before, print_value;
 long int last_beat;
+float offsetCorrection = 7; // Offset correction value in degrees Celsius
+
+OneWire oneWire(ONE_WIRE_BUS);
+DallasTemperature sensors(&oneWire);
 
 void setup()
 {
   Serial.begin(9600);
+  sensors.begin();
+  sensors.setResolution(12); // Set the resolution to 12 bits
 }
 
 void loop()
 {
+
+  Serial.println();
+  
   float avgHeartRate = getHeartRate();
-  Serial.print(avgHeartRate);
-  Serial.print('\n');
+  float temperature = getTemprature();
+
+  givePythonData(avgHeartRate, temperature);
+
+  delay(5000);
 }
 
 float getHeartRate()
@@ -83,4 +99,23 @@ float getHeartRate()
   }
 
   return total / count;
+}
+
+float getTemprature()
+{
+  sensors.requestTemperatures();                                      // Send command to get temperatures
+  delay(750);                                                         // Wait for the conversion to finish (for 12-bit resolution)
+  float temperatureC = sensors.getTempCByIndex(0) + offsetCorrection; // Apply offset correction
+
+  return temperatureC;
+}
+
+void givePythonData(float heart_rate, float temperature)
+{
+  Serial.println();
+  Serial.print("Heart Rate: ");
+  Serial.print(heart_rate);
+  Serial.print(" && Body Temperature: ");
+  Serial.print(temperature);
+  Serial.println();
 }
