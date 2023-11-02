@@ -11,6 +11,13 @@ void setup()
   Serial.begin(9600);
 }
 
+void loop()
+{
+  float avgHeartRate = getHeartRate();
+  Serial.print(avgHeartRate);
+  Serial.print('\n');
+}
+
 float getHeartRate()
 {
   float reads[samp_siz], sum;
@@ -76,11 +83,4 @@ float getHeartRate()
   }
 
   return total / count;
-}
-
-void loop()
-{
-  float avgHeartRate = getHeartRate();
-  Serial.print(avgHeartRate);
-  Serial.print('\n');
 }
