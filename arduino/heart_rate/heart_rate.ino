@@ -13,7 +13,7 @@
 int sensorPin = 0;
 float first, second, third, before, print_value;
 long int last_beat;
-float offsetCorrection = 7; // Offset correction value in degrees Celsius
+float offsetCorrection = 10; // Offset correction value in degrees Celsius
 
 // RFID configs
 MFRC522 mfrc522(SS_PIN, RST_PIN);
@@ -37,20 +37,43 @@ void setup()
 void loop()
 {
 
-  Serial.println();
-  delay(3000);
+  // set encryption to the card.
+  for (byte i = 0; i < 6; i++)
+  {
+    key.keyByte[i] = 0xFF;
+  }
+
+  if (!mfrc522.PICC_IsNewCardPresent())
+  {
+    return;
+  }
+
+  if (!mfrc522.PICC_ReadCardSerial())
+  {
+    return;
+  }
+
+  // read data accordingly
   String patient_id = getPatientID_From_card();
 
-  if (!patient_id.length()) {
-    Serial.println("Failed to read the patient id");  
+  Serial.print("Recording records for patient with id: ");
+  Serial.println(patient_id);
+  Serial.println("=======================================");
+
+  for (;;)
+  {
+    float avgHeartRate = getHeartRate();
+    float temperature = getTemprature();
+    givePythonData(patient_id, avgHeartRate, temperature);
+    delay(3000);
   }
-  
-  float avgHeartRate = getHeartRate();
-  float temperature = getTemprature();
 
-  givePythonData(patient_id, avgHeartRate, temperature);
+  // stop any operation (either cryptographic or activeness) on both PCD && PICC
+  mfrc522.PICC_HaltA();
+  mfrc522.PCD_StopCrypto1();
 
-  delay(5000);
+  // wait for 5 seconds before another RECORD.
+  delay(2000);
 }
 
 float getHeartRate()
@@ -70,7 +93,7 @@ float getHeartRate()
   int count = 0;
 
   long int start_time = millis();
-  while (millis() < start_time + 10000) // average heart rate in 10 seconds
+  while (millis() < start_time + 5000) // average heart rate in 5 seconds
   {
     n = 0;
     start = millis();
@@ -132,26 +155,25 @@ float getTemprature()
 void givePythonData(String patient_id, float heart_rate, float temperature)
 {
   Serial.println();
-  Serial.print("Patient ID");
+  Serial.print("Patient ID: ");
   Serial.print(patient_id);
   Serial.print(" && Heart Rate: ");
   Serial.print(heart_rate);
   Serial.print(" && Body Temperature: ");
   Serial.print(temperature);
-  Serial.println();
 }
 
 String getPatientID_From_card()
 {
-  byte patientIdBlock = 4;
+  byte patientIdBlock = 1;
 
   card_status = mfrc522.PCD_Authenticate(MFRC522::PICC_CMD_MF_AUTH_KEY_A, patientIdBlock, &key, &(mfrc522.uid));
-  if (card_status == 3)
+  if (card_status != MFRC522::STATUS_OK)
   {
     Serial.print(F("Authentication failed: "));
     Serial.println(mfrc522.GetStatusCodeName(card_status));
 
-    return;
+    return "Authentication Failed"; // Return an error message or code
   }
 
   byte arrayAddress[18];
@@ -160,11 +182,10 @@ String getPatientID_From_card()
 
   if (card_status != MFRC522::STATUS_OK)
   {
-
     Serial.print(F("Reading failed: "));
     Serial.println(mfrc522.GetStatusCodeName(card_status));
 
-    return;
+    return "Reading Failed"; // Return an error message or code
   }
 
   String value = "";
