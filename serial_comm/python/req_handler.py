@@ -12,14 +12,14 @@ try:
         if data:
             # Split the data string into components
             components = data.split(" && ")
-            # Extract heart rate and body temperature
-            heart_rate = float(components[0].split(": ")[1])
-            body_temperature = float(components[1].split(": ")[1])
-
+            # Extract patient ID, heart rate and body temperature
+            patient_id = components[0].split(": ")[1]
+            heart_rate = float(components[1].split(": ")[1])
+            body_temperature = float(components[2].split(": ")[1])
 
             if 60 <= heart_rate <= 120:
                 print(f"Received data from Arduino: {data}")
-                request_body = {"patient_id": "11900315123455", "heart_rate": int(float(heart_rate)), "body_temperature": int(float(body_temperature))}
+                request_body = {"patient_id": patient_id, "heart_rate": heart_rate, "body_temperature": body_temperature}
                 response = requests.post(api_url, json=request_body)
                 if response.status_code == 201:
                     print('Data uploaded successfully!')
