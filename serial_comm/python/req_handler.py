@@ -9,7 +9,8 @@ api_url = "http://localhost:1000/health-track/record"
 try:
     while True:
         data = ser.readline().decode().strip()
-        if data:
+        print(data)
+        if "Patient ID:" in data and "Heart Rate:" in data and "Body Temperature:" in data:
             # Split the data string into components
             components = data.split(" && ")
             # Extract patient ID, heart rate and body temperature
