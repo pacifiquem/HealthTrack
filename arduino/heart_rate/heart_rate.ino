@@ -45,11 +45,13 @@ void loop()
 
   if (!mfrc522.PICC_IsNewCardPresent())
   {
+    Serial.println("Error: No card present.");
     return;
   }
 
   if (!mfrc522.PICC_ReadCardSerial())
   {
+    Serial.println("Error: Failed to read card serial.");
     return;
   }
 

@@ -1,7 +1,7 @@
 import serial
 import requests
 
-ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1)
+ser = serial.Serial("/dev/ttyACM1", 9600, timeout=1)
 
 # API endpoint URL
 api_url = "http://localhost:1000/health-track/record"
@@ -23,8 +23,9 @@ try:
                     request_body = {"patient_id": patient_id, "heart_rate": int(float(heart_rate)), "body_temperature": int(float(body_temperature))}
                     response = requests.post(api_url, json=request_body)
                     if response.status_code == 201:
-                        print('Data uploaded successfully!')
+                        print(response.json())
                     else:
+                        print(response.json())
                         print("Failed to upload data")
 except KeyboardInterrupt:
     print("Serial communication interrupted.")
