@@ -1,7 +1,7 @@
 import serial
 import requests
 
-ser = serial.Serial("/dev/ttyACM1", 9600, timeout=1)
+ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1) # Remember to change port number.
 
 # API endpoint URL
 api_url = "http://localhost:1000/health-track/record"

@@ -1,0 +1,14 @@
+{
+  "name": "Health Track Pro Plus",
+  "version": "1.0.0",
+  "author": "MURANGWA Pacifique & Geek Squad",
+  "directories": {  
+    "./.github": "Github config files",
+    "./.husky":"Husky config files",
+    "./.lepper": "Lepper config files",
+    "./arduino": "all arduino codes (.ino) files",
+    "./public": "static files for our server (html, css, javascript [for frontend])",
+    "./serial-comm": "node/python codes listen to serial messages from arduino",
+    "./src": "Our server's implementation"
+  }
+}
