@@ -1,5 +1,5 @@
 import sqlite3 from "sqlite3";
-import training_data from "./data.mjs";
+import training_data from "./data_.mjs";
 
 // Open a database connection
 const db = new sqlite3.Database('../../training_health_track.db');
